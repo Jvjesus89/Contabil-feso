@@ -1,0 +1,290 @@
+<html>
+    <head style="background-color: aliceblue;">
+        <title>Agendamento online - Duvidas</title>
+
+        <link rel="stylesheet"  href="css/stylepadrao.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+    <!--calendario-->  
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
+    <script src="login.js"></script>    
+</head>
+<body>
+<div>    
+    <div class="top">
+        <header style="margin-left: 10px; display: flex; justify-content: space-between;">
+            CENTRO UNIVERSITÁRIO SERRA DOS ÓRGÃOS 
+            <div id="loginForm" style="text-align: right;">
+                <label>Login</label>
+                <input class="login" type="text" id="usuario" name="usuario" required>
+                <label>Senha</label>
+                <input class="login" type="password" id="senha" name="senha">
+                <button class="loginButton" type="button" onclick="verificarLogin()">Login</button>
+            </div>
+        </header> 
+        <p style="text-align: center; font-size: 20px;">AGENDAMENTO ONLINE - AGENDAMENTOS</p>
+    </div> 
+        <br>
+
+    <div>
+        <a href="Index.html"> 
+            <img src="picture/logo unifeso.png" alt=""></a> 
+    </div>
+            
+    <div>
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation "><a href="index.html" CLASS="animated-button thar-four menu-txt" id="menu-tops">Novidades</a></li>
+            <li role=" "><a onclick="verificaCaminhoagendamento()" CLASS="animated-button thar-four menu-txt" id="menu-tops-active"disabled>Agendamentos</a></li>
+            <li role="presentation "><a onclick="verificaCaminhoCadastro()" CLASS="animated-button thar-four menu-txt" id="menu-tops">Cadastros</a></li>
+            <li role="presentation "><a href="avaliacao.html" CLASS="animated-button thar-four menu-txt" id="menu-tops">Avaliação</a></li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <main>
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation"><a href="" class="animated-button thar-four menu-txt" id="menu-tops-active">Horarios disponiveis</a></li>
+            <li role="presentation"><a href="formCadFaixaAgend.html" class="animated-button thar-four menu-txt" id="menu-tops">Cadastrar Faixa Disponivel</a></li>
+        </ul>
+    </main>
+</div>
+<br>
+<!--tela para cadastrar duvida-->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form>
+            <main>
+                <label for="tipoAgendamento">Tipo de Agendamento:</label>
+                <br>
+                <select id="tipoAgendamento" name="tipoAgendamento">
+                    <option value="Imp. Renda">Duvidas Imposto de renda</option>
+                    <option value="Duv. Imp.">Duvidas Imposto</option>
+                    <option value="Duv. MEI">Duvidas sobre MEI</option>
+                    <option value="Outros">Outros</option>
+                </select>
+                <br>
+                <br>
+                <label for="duvida">Descreva a sua Dúvida:</label>
+                <br>
+                <textarea id="duvida" name="duvida"></textarea>    
+                <br> 
+                <br>
+                <br>       
+            <button id="butao" type="submit">Agendar</button>
+        </main>
+        </form>
+    </div>
+</div>
+
+<!--calendario-->  
+<div id="calendar"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+                // Definindo os horários disponíveis como eventos
+                var availableTimes = [
+            {
+                title: 'Disponível para Reservas',
+                start: '2024-11-05T09:00:00',
+                end: '2024-11-05T17:00:00',
+                color: '#28a745', // Cor verde para indicar disponibilidade
+                classNames: ['fc-vago']
+            },
+            {
+                title: 'Disponível para Consultas',
+                start: '2024-11-08T09:00:00',
+                end: '2024-11-08T17:00:00',
+                color: '#28a745',
+                classNames: ['fc-vago']
+            },
+            {
+                title: 'Disponível para Consultas',
+                start: '2024-12-02T09:00:00',
+                end: '2024-12-02T17:00:00',
+                color: '#28a745',
+                classNames: ['fc-vago']
+            }
+        ];
+            // Eventos já agendados
+            var EventosAgendado = [
+            {
+                title: 'Reunião de equipe',
+                start: '2024-11-08T10:00:00',
+                end: '2024-11-08T12:00:00',
+		color: 'red', // Cor vermelha para indicar indisponível
+                classNames: ['fc-event']
+            }
+        ];
+
+        var allEvents = availableTimes.concat(EventosAgendado); // Combina todos os eventos
+
+        var calendarEl = document.getElementById('calendar');
+        
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'pt-br',
+            initialView: 'timeGridWeek', // Visualização Semanal
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay' // Vistas de mês, semana, e dia
+            },
+            buttonText: {
+                today: 'Hoje',
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                list: 'Agenda'
+            },
+            events: allEvents,
+            editable: true,
+            selectable: true,
+selectAllow: function(selectInfo) {
+                // Verifica se a seleção conflita com eventos existentes
+                return !EventosAgendado.some(function(event) {
+                    return (
+                        selectInfo.start < new Date(event.end) &&
+                        selectInfo.end > new Date(event.start)
+                    );
+                });
+            },
+select: function(info) {
+    // verifica se usuario está logado
+    if (localStorage.getItem('estaLogado') != 'true') {
+                        alert('Precisa ser feito o login antes de fazer o agendamento');
+                        return  
+                    }                  
+    
+    // Verifica se o horário está disponível para agendamento
+                    if (availableTimes.some(function(event) {
+                        return (
+                            info.start < new Date(event.end) &&
+                            info.end > new Date(event.start)
+                        );
+                    }))
+                    {// Exibir o modal
+                    var modal = document.getElementById('myModal');
+                    modal.style.display = 'block';
+
+                     // Limpar os dados do textarea e outras entradas do formulário
+                    document.getElementById('duvida').value = '';
+
+                    // Salva o horário selecionado em variáveis globais ou campos escondidos
+                    var selectedStart = info.start;
+                    var selectedEnd = info.end;
+
+                    // Configurar o botão de fechar no modal
+                    var closeModal = document.querySelector('.modal .close');
+                    closeModal.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                    });
+
+                    // Configura o botão de confirmar do formulário
+                    var form = modal.querySelector('form');
+                    form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var title = document.getElementById('tipoAgendamento').value || 'Novo Evento';
+                    var duvida = document.getElementById('duvida').value || 'Sem detalhes';
+                    EventosAgendado.push({
+                        title: title,
+                        duvida: duvida,
+                        start: selectedStart,
+                        end: selectedEnd,
+                        classNames: ['fc-event']
+                    });
+
+                    calendar.addEvent({
+                        title: title,
+                        start: selectedStart,
+                        end: selectedEnd,
+                        allDay: false,
+                        extendedProps: {
+                        duvida: duvida
+                        },
+                        classNames: ['fc-event']
+                    });
+
+                    modal.style.display = 'none'; // Fechar o modal após confirmar
+                    
+                     // Limpar variáveis selecionadas
+                    selectedStart = null;
+                    selectedEnd = null;
+
+                    calendar.unselect(); // Limpar a seleção do calendário
+                    });   
+                    }else{
+                        alert('Este horário (' + info.start.toLocaleString() + ') não está disponivel para agendamento.');   
+                    }
+                    calendar.unselect();
+                }
+                ,
+                eventClick: function(info) {
+                // Pega o evento clicado
+                    var event = info.event;
+
+                // Exibir o modal
+                    var modal = document.getElementById('myModal');
+                    modal.style.display = 'block';
+
+                    // Preencher o modal com as informações do evento
+                    document.getElementById('duvida').value = event.extendedProps.duvida || '';
+                    document.getElementById('tipoAgendamento').value = event.title;
+
+                // Adiciona um botão para excluir o evento
+                    var deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Excluir';
+                    deleteButton.style.marginTop = '10px';
+                    deleteButton.style.backgroundColor = '#dc3545';
+                    deleteButton.style.color = 'white';
+                    deleteButton.style.border = 'none';
+                    deleteButton.style.padding = '10px 20px';
+                    deleteButton.style.cursor = 'pointer';
+
+                // Adiciona o botão ao modal, garantindo que só exista um botão
+                var form = modal.querySelector('form');
+                var existingButton = form.querySelector('.delete-event');
+                    if (existingButton) {
+                      existingButton.remove();
+                    }
+                    deleteButton.className = 'delete-event';
+                    form.appendChild(deleteButton);
+
+                deleteButton.addEventListener('click', function() {
+                // Remove o evento do calendário
+                    event.remove();
+
+                // Remove o evento da lista `EventosAgendado`
+                    EventosAgendado = EventosAgendado.filter(function(e) {
+                        return e.start !== event.start.toISOString() || e.end !== event.end.toISOString();
+                });
+
+                // Fecha o modal
+                    modal.style.display = 'none';
+                });
+
+                // Configurar o botão de fechar no modal
+                var closeModal = document.querySelector('.modal .close');
+                closeModal.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
+            }
+            });
+
+            calendar.render();
+        });
+    </script>
+        
+<!--footer-->  
+<link rel="stylesheet" href="https://www.unifeso.edu.br/css/estilo-footer.css">
+
+<footer class="nb-footer">
+	<div class="container-fluid" style="width: 100%; ">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="about">
+					<img src="picture/logo unifeso footer.png" alt="" style="width: 255px; padding-top: 40px !important">
+                </div>
+                </footer>
+    </body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+    <head style="background-color: aliceblue;">
+        <title>Agendamento online - Duvidas</title>
+
+        <link rel="stylesheet"  href="css/stylepadrao.css">
+        <link rel="stylesheet" href="css/bootstrap.css">
+    <!--calendario-->  
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
+    <script src="login.js"></script>    
+</head>
+<body>
+<div>    
+    <div class="top">
+        <header style="margin-left: 10px; display: flex; justify-content: space-between;">
+            CENTRO UNIVERSITÁRIO SERRA DOS ÓRGÃOS 
+            <div id="loginForm" style="text-align: right;">
+                <label>Login</label>
+                <input class="login" type="text" id="usuario" name="usuario" required>
+                <label>Senha</label>
+                <input class="login" type="password" id="senha" name="senha">
+                <button class="loginButton" type="button" onclick="verificarLogin()">Login</button>
+            </div>
+        </header> 
+        <p style="text-align: center; font-size: 20px;">AGENDAMENTO ONLINE - AGENDAMENTOS</p>
+    </div> 
+        <br>
+
+    <div>
+        <a href="Index.html"> 
+            <img src="picture/logo unifeso.png" alt=""></a> 
+    </div>
+            
+    <div>
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation "><a href="index.html" CLASS="animated-button thar-four menu-txt" id="menu-tops">Novidades</a></li>
+            <li role=" "><a onclick="verificaCaminhoagendamento()" CLASS="animated-button thar-four menu-txt" id="menu-tops-active"disabled>Agendamentos</a></li>
+            <li role="presentation "><a onclick="verificaCaminhoCadastro()" CLASS="animated-button thar-four menu-txt" id="menu-tops">Cadastros</a></li>
+            <li role="presentation "><a href="avaliacao.html" CLASS="animated-button thar-four menu-txt" id="menu-tops">Avaliação</a></li>
+        </ul>
+    </div>
+</div>
+
+<div>
+    <main>
+        <ul class="nav nav-tabs nav-justified">
+            <li role="presentation"><a onclick="verificaCaminhoagendamento()"  class="animated-button thar-four menu-txt" id="menu-tops">Horarios disponiveis</a></li>
+            <li role="presentation"><a href="" class="animated-button thar-four menu-txt" id="menu-tops-active">Cadastrar Faixa Disponivel</a></li>
+        </ul>
+    </main>
+</div>
+<br>
+<main style="font-size: large;">
+    <h4 style="color:#006b64; font-size: 19px; margin-left: 15px;">Cadastro da Faixa de horário disponivel</h4>
+</main>
+<br>
+
+<div class="container">
+    <main>
+        <form id="formCadastro" style="align-self: center;" onsubmit="AgendamentoRealizado()">
+            <label for="dataini"> Informe a data de início </label>
+            <input type="date" id="dataini" required>
+            <br>
+            <label for="horaini">Informe a hora de início </label>
+            <input type="time" id="horaini" required>
+            <br>
+            <label for="datafim">Informe a data de finalização </label>
+            <input type="date" id="datafim" required>
+            <br>
+            <label for="horafim">Informe a hora de finalização</label>
+            <input type="time" id="horafim" required>
+            <br>
+            <button id="butao">Cadastrar</button>
+            
+            <script>
+                function AgendamentoRealizado(){
+                    alert('Seu agendamento foi cadastrado com sucesso!');
+                }
+                        
+            </script>        
+
+            </form>
+    </main>
+</div>
+
+<!--footer-->  
+<link rel="stylesheet" href="https://www.unifeso.edu.br/css/estilo-footer.css">
+
+<footer class="nb-footer">
+	<div class="container-fluid" style="width: 100%; ">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="about">
+					<img src="picture/logo unifeso footer.png" alt="" style="width: 255px; padding-top: 40px !important">
+                </div>
+                </footer>
+    </body>
+</html>

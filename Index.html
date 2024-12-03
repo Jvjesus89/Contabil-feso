@@ -1,0 +1,136 @@
+<html>
+
+<head style="background-color: aliceblue;">
+    <title>Agendamento online</title>
+    <meta media="viewport" content="width=devide-width">
+    <link rel="stylesheet" href="css/stylepadrao.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <script src="login.js"></script>
+</head>
+
+<body>
+    <div>
+        <div class="top">
+            <header style="margin-left: 10px; display: flex; justify-content: space-between;">
+                CENTRO UNIVERSITÁRIO SERRA DOS ÓRGÃOS
+                <div id="loginForm" style="text-align: right;">
+                    <label>Login</label>
+                    <input class="login" type="text" id="usuario" name="usuario" required>
+                    <label>Senha</label>
+                    <input class="login" type="password" id="senha" name="senha">
+                    <button class="loginButton" type="button" onclick="verificarLogin()">Login</button>
+                </div>
+            </header>
+            <p style="text-align: center; font-size: 20px;">AGENDAMENTO ONLINE</p>
+        </div>
+        <br>
+
+        <div>
+            <a href="https://www.unifeso.edu.br">
+                <img src="picture/logo unifeso.png" alt=""></a>
+        </div>
+
+        <div>
+            <ul class="nav nav-tabs nav-justified">
+                <li role="presentation "><a href="index.html" CLASS="animated-button thar-four menu-txt"
+                        id="menu-tops-active">Novidades</a></li>
+                <li role="presentation "><a onclick="verificaCaminhoagendamento()" CLASS="animated-button thar-four menu-txt"
+                        id="menu-tops">Agendamentos</a></li>
+                <li role="presentation "><a onclick="verificaCaminhoCadastro()" CLASS="animated-button thar-four menu-txt"
+                        id="menu-tops">Cadastros</a></li>
+                <li role="presentation "><a href="avaliacao.html" CLASS="animated-button thar-four menu-txt"
+                        id="menu-tops">Avaliação</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <br>
+
+
+
+
+    <div class="bem-vindo">
+        <h2><strong>Bem Vindo ao Agenda Fácil NAF!</strong></h2>
+        <h3>Nossa missão é tornar o atendimento NAF mais acessível e ágil para você. <br>Sinta-se à vontade para
+            explorar nossa plataforma e agendar seu atendimento com praticidade e rapidez.</h3>
+        <br>
+        <br>
+        <p> Como posso ajudar? </p>
+        <br>
+        <a onclick="verificaCaminhoagendamento()"> Quero agendar um horário </a>
+        <a onclick="verificaCaminhoCadastro()"> Ainda não tenho cadastro </a>
+        <a href="./avaliacao.html"> Gostaria de avaliar </a>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="slideshow-container">
+
+        <img class="slides" src="picture/aviso1.png" alt="Slide 1">
+
+        <img class="slides" src="picture/aviso2.png" alt="Slide 2">
+
+
+        <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+        <a class="next" onclick="changeSlide(1)">&#10095;</a>
+    </div>
+
+    <script>
+        let slideIndex = 0;
+        const slides = document.getElementsByClassName("slides");
+
+        function showSlide(n) {
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active-slide", "slide-out-left", "slide-in-right");
+            }
+
+            // Ajusta o slideIndex para garantir que ele esteja dentro do limite de slides
+            slideIndex = (n + slides.length) % slides.length;
+
+            // Adiciona a classe "active-slide" ao slide atual
+            slides[slideIndex].classList.add("active-slide");
+        }
+
+        function changeSlide(n) {
+            let currentSlide = slideIndex;
+
+            // Mostra o próximo slide
+            showSlide(slideIndex + n);
+
+            // Adiciona classes de transição
+
+            slides[slideIndex].classList.add(n > 0 ? "slide-in-right" : "slide-out-left");
+        }
+
+
+        // Slide automático a cada 5 segundos
+        setInterval(() => changeSlide(1), 9000);
+    </script>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+
+    <link rel="stylesheet" href="https://www.unifeso.edu.br/css/estilo-footer.css">
+
+    <footer class="nb-footer">
+        <div class="container-fluid" style="width: 100%; ">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="about">
+                        <img src="picture/logo unifeso footer.png" alt=""
+                            style="width: 255px; padding-top: 40px !important">
+                    </div>
+    </footer>
+</body>
+</body>
+
+</html>
