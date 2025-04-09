@@ -73,6 +73,16 @@ document.addEventListener('DOMContentLoaded', function () {
           alert('Precisa ser feito o login antes de fazer o agendamento');
           return;
         }
+
+        if (availableTimes.some(function(event) {
+          return (
+              info.start < new Date(event.end) &&
+              info.end > new Date(event.start)
+          );
+      }))
+      {// Exibir o modal
+      var modal = document.getElementById('myModal');
+      modal.style.display = 'block';
   
         const modal = document.getElementById('myModal');
         modal.style.display = 'block';
