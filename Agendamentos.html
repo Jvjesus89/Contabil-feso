@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.4/index.global.min.js"></script>
     <script src="login.js"></script>  
+    <script src="Agenda.js"></script>
 </head>
 <body>
 <div>    
@@ -49,6 +50,11 @@
     </main>
 </div>
 <br>
+
+<div style="align-items: center; justify-content: center;display: flex;">
+    <h1 style="font-size: 20px;">Para realizar o agendamento selecione um horario vago</h1> 
+</div>
+
 <!--tela para cadastrar duvida-->
 <div id="myModal" class="modal">
     <div class="modal-content">
@@ -86,22 +92,22 @@
                 var availableTimes = [
             {
                 title: 'Disponível para Reservas',
-                start: '2024-11-05T09:00:00',
-                end: '2024-11-05T17:00:00',
+                start: '2025-04-09T09:00:00',
+                end: '2025-04-09T17:00:00',
                 color: '#28a745', // Cor verde para indicar disponibilidade
                 classNames: ['fc-vago']
             },
             {
                 title: 'Disponível para Consultas',
-                start: '2024-11-08T09:00:00',
-                end: '2024-11-08T17:00:00',
+                start: '2025-04-10T09:00:00',
+                end: '2025-04-10T17:00:00',
                 color: '#28a745',
                 classNames: ['fc-vago']
             },
             {
                 title: 'Disponível para Consultas',
-                start: '2024-12-02T09:00:00',
-                end: '2024-12-02T17:00:00',
+                start: '2025-04-11T09:00:00',
+                end: '2025-04-11T17:00:00',
                 color: '#28a745',
                 classNames: ['fc-vago']
             }
@@ -110,8 +116,8 @@
             var EventosAgendado = [
             {
                 title: 'Reunião de equipe',
-                start: '2024-11-08T10:00:00',
-                end: '2024-11-08T12:00:00',
+                start: '2025-04-09T10:00:00',
+                end: '2025-04-09T12:00:00',
 		color: 'red', // Cor vermelha para indicar indisponível
                 classNames: ['fc-event']
             }
@@ -273,6 +279,11 @@ select: function(info) {
             calendar.render();
         });
     </script>
+    <div style="align-items: right ; justify-content:right; display: flex; font-size: 18px;">
+        <span class="cor-box" style="background-color: #28a745;"></span> Horario disponivel
+        <span class="cor-box" style="background-color: red; margin-left: 20px;"></span> Horario ocupado
+        <span class="cor-box" style="background-color: blue; margin-left: 20px;"></span> Horario já agendado      
+    </div>
         
 <!--footer-->  
 <link rel="stylesheet" href="https://www.unifeso.edu.br/css/estilo-footer.css">
